@@ -10,8 +10,10 @@ class Book
         int Availible;
 
     public:
-        Book(const char* name = " ", const char* author = " ", int pages = 0, int Availible = 0);
+        Book(const char* name, const char* author, int pages, int Availible);
         void print();
+        // void rent();
+        // void return();
 };
 
 class List_of_books
@@ -20,24 +22,38 @@ class List_of_books
         Book *ptr;
         List_of_books *next;
     public:
-        List_of_books()  
+        List_of_books(const char* name, const char* author, int pages, int availible)
+        {
+            this->ptr = new Book(name, author, pages, availible);
+            this->next = nullptr; 
+        }
+
+        // void show_list();
+
+        ~List_of_books()
+        {
+            if(this->next != nullptr)
+                delete this->ptr;
+            delete this->ptr;
+        }  
 };
 
 Book::Book(const char* name, const char* author, int pages, int availible)
 {
-    Name = name;
-    Author = author;
-    Pages = pages;
-    Availible = availible;
+    this->Name = name;
+    this->Author = author;
+    this->Pages = pages;
+    this->Availible = availible;
 }
 void Book::print()
 {
     std::cout << "Book: " << Name << std::endl;
     std::cout << "Author: " << Author << std::endl;
     std::cout << "Pages: " << Pages << std::endl;
-    std::cout << "Copies availible: " << Pages << std::endl;
+    std::cout << "Availible: " << Pages << std::endl;
 }
 
 int main()
 {
+    return 0;
 }
