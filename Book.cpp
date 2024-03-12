@@ -12,8 +12,14 @@ class Book
     public:
         Book(const char* name, const char* author, int pages, int Availible);
         void print();
-        // void rent();
-        // void return();
+        bool rent();
+        void give_back();
+
+        ~Book()
+        {
+            delete Name;
+            delete Author;
+        }
 };
 
 class List_of_books
@@ -30,13 +36,10 @@ class List_of_books
 
         // void show_list();
 
-        ~List_of_books()
-        {
-            if(this->next != nullptr)
-                delete this->ptr;
-            delete this->ptr;
-        }  
+        ~List_of_books();
 };
+
+List_of_books *head = nullptr;
 
 Book::Book(const char* name, const char* author, int pages, int availible)
 {
@@ -52,6 +55,35 @@ void Book::print()
     std::cout << "Pages: " << Pages << std::endl;
     std::cout << "Availible: " << Pages << std::endl;
 }
+bool Book::rent()
+{
+    if(Availible > 0)
+        {
+            Availible--;
+            return 1;
+        }
+    else
+        return 0;
+}
+void Book::give_back()
+{
+    Availible++;
+}
+List_of_books::~List_of_books()
+        {
+            while(head)
+            {
+                List_of_books* temp = head;
+
+                if(this->next != nullptr)
+                    head = next;
+                else 
+                    head = nullptr;
+
+                delete temp->ptr;
+                delete temp;
+            }
+        }  
 
 int main()
 {
