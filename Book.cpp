@@ -1,9 +1,6 @@
 #include <iostream>
 #include <string.h>
-
-#pragma once
-#include "List_of_books.h"
-#include "Book.h"
+#include "class.h"
 
 Book::Book(const char* name, const char* author, int pages, int availible)
 {
@@ -15,13 +12,6 @@ Book::Book(const char* name, const char* author, int pages, int availible)
 
     this->Pages = pages;
     this->Availible = availible;
-}
-
-Book::~Book()
-{
-    std::cerr << "Book " << Name << " deleted";
-    delete Name;
-    delete Author;
 }
 
 void Book::print()
@@ -46,4 +36,11 @@ bool Book::rent()
 void Book::give_back()
 {
     Availible++;
+}
+
+Book::~Book()
+{
+    std::cerr << "Book " << Name << " deleted" << std::endl;
+    delete Name;
+    delete Author;
 }
