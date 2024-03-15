@@ -41,6 +41,6 @@ void Book::give_back()
 Book::~Book()
 {
     std::cerr << "Book " << Name << " deleted" << std::endl;
-    delete Name;
-    delete Author;
+    delete[] Name;
+    delete[] Author;
 }
