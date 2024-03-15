@@ -1,8 +1,8 @@
 class Book
 {
     private:
-        const char* Name;
-        const char* Author; 
+        char* Name;
+        char* Author; 
         int Pages;
         int Availible;
 

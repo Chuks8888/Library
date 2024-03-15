@@ -5,13 +5,13 @@
 Book::Book(const char* name, const char* author, int pages, int availible)
 {
     this->Name = new char[strlen(name) + 1];
-    this->Name = name;
+    strcpy(Name, name);
     
     this->Author = new char[strlen(author) + 1];
-    this->Author = author;
+    strcpy(Author, author);
 
-    this->Pages = pages;
-    this->Availible = availible;
+    Pages = pages;
+    Availible = availible;
 }
 
 void Book::print()

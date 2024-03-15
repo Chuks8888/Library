@@ -4,7 +4,7 @@
 
 List_of_books::List_of_books()
 {
-    head = nullptr;
+    this->head = nullptr;
 }
 
 void List_of_books::Add_book(const char* name, const char* author, int pages, int availible)
@@ -17,6 +17,8 @@ void List_of_books::Add_book(const char* name, const char* author, int pages, in
     ptr = new List;
     ptr->book = new Book(name, author, pages, availible);
     ptr->next = nullptr;
+    if(head == nullptr)
+        head = ptr;
 }
 
 bool List_of_books::is_empty()

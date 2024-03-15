@@ -5,7 +5,8 @@
 int main()
 {
     List_of_books Novels;
-    std::cerr << "Hello world";
+    Novels.Add_book("The Dune", "Someone", 300, 15);
+    Novels.show_list();
     Novels.~List_of_books();
     return 0;
 }
