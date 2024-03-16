@@ -2,13 +2,13 @@
 #include <string.h>
 #include "class.h"
 
-Book::Book(const char* name, const char* author, int pages, int availible)
+Book::Book(const char* name, const char* author, const int pages, int availible)
 {
     this->Name = new char[strlen(name) + 1];
-    strcpy(Name, name);
+    this->Name = name;
     
     this->Author = new char[strlen(author) + 1];
-    strcpy(Author, author);
+    this->Author = author;
 
     Pages = pages;
     Availible = availible;
@@ -40,7 +40,7 @@ void Book::give_back()
 
 Book::~Book()
 {
-    std::cerr << "Book " << Name << " deleted" << std::endl;
+    std::cerr << Name << " deleted" << std::endl;
     delete[] Name;
     delete[] Author;
 }

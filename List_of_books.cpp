@@ -12,18 +12,47 @@ void List_of_books::Add_book(const char* name, const char* author, int pages, in
     List* ptr = head;
     while(ptr)
     {
+        if(ptr->next == nullptr)
+        {
+            ptr->next = new List;
+            ptr = ptr->next;
+            break;
+        }
         ptr = ptr->next;
     }
-    ptr = new List;
+    if(head == nullptr)
+    {
+        ptr = new List;
+        head = ptr;
+    }
     ptr->book = new Book(name, author, pages, availible);
     ptr->next = nullptr;
-    if(head == nullptr)
-        head = ptr;
+}
+
+List_of_books::List* List_of_books::find_book_ptr(const char* name)
+{
+    List* ptr = head;
+    while(ptr)
+    {
+        if(strcmp(name, ptr->book->Name) == 0)
+            return ptr;
+
+        ptr = ptr->next;
+    }
+    return nullptr;
 }
 
 bool List_of_books::is_empty()
 {
     return head == nullptr;
+}
+
+void List_of_books::print_if_found(const char* name)
+{
+    List *ptr = find_book_ptr(name);
+    if(ptr == nullptr)
+        std::cerr << "Book " << name << " not found" << std::endl;
+    else std::cerr << "Book " << ptr->book->Name << " found" << std::endl;
 }
 
 void List_of_books::show_list()
@@ -34,6 +63,56 @@ void List_of_books::show_list()
         ptr->book->print();
         std::cout<<std::endl;
         ptr = ptr->next;
+    }
+}
+
+void List_of_books::swap_elements(List* element_1, List* element_2)
+{
+    Book* temp = element_1->book;
+    element_1->book = element_2->book;
+    element_2->book = temp;
+}
+
+void List_of_books::remove_book(const char* name)
+{
+    if(is_empty() != 1)
+    {
+        if(find_book_ptr(name) != nullptr)
+        {
+            List* ptr_to_remove = find_book_ptr(name);
+            if(ptr_to_remove == head)
+            {
+                if(head->next == nullptr)
+                {
+                    delete head->book;
+                    delete head;
+                }
+                else
+                {
+                    head = head->next;
+                    delete ptr_to_remove->book;
+                    delete ptr_to_remove;
+                }
+            }
+            else
+            {
+                List* ptr_before = head;
+                while(ptr_before->next != ptr_to_remove)
+                    ptr_before = ptr_before->next;
+                if(ptr_to_remove->next == nullptr)
+                {
+                    delete ptr_to_remove->book;
+                    delete ptr_to_remove;
+                    ptr_before->next = nullptr;
+                }
+                else
+                {
+                    ptr_before->next = ptr_to_remove->next;
+                    delete ptr_to_remove->book;
+                    delete ptr_to_remove;
+                }
+            }
+        }
     }
 }
 
