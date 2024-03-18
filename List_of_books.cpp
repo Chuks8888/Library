@@ -73,6 +73,23 @@ void List_of_books::swap_elements(List* element_1, List* element_2)
     element_2->book = temp;
 }
 
+int List_of_books::size()
+{
+	List* ptr = head;
+	int size = 0;
+	while(ptr)
+	{
+		size++;
+		ptr = ptr->next;
+	}
+	return size;
+}
+
+void List_of_books::sort_alphabet_descending()
+{
+	
+}
+
 void List_of_books::remove_book(const char* name)
 {
     if(is_empty() != 1)

@@ -5,10 +5,9 @@
 Book::Book(const char* name, const char* author, const int pages, int availible)
 {
     this->Name = new char[strlen(name) + 1];
-    this->Name = name;
-    
+    strcpy(this->Name, name);
     this->Author = new char[strlen(author) + 1];
-    this->Author = author;
+    strcpy(this->Author, author);
 
     Pages = pages;
     Availible = availible;
@@ -26,7 +25,7 @@ bool Book::rent()
 {
     if(Availible > 0)
         {
-            Availible--;
+            this->Availible--;
             return 1;
         }
     else
@@ -41,6 +40,6 @@ void Book::give_back()
 Book::~Book()
 {
     std::cerr << Name << " deleted" << std::endl;
-    delete[] Name;
-    delete[] Author;
+    delete []this->Author;
+    delete []this->Name;
 }

@@ -1,8 +1,8 @@
 class Book
 {
     private:
-        const char* Name;
-        const char* Author; 
+        char* Name;
+		char* Author; 
         int Pages;
         int Availible;
 
@@ -27,14 +27,16 @@ class List_of_books
         
     private:
         List *head;
-        List* find_book_ptr(const char* name);
+        List *find_book_ptr(const char* name);
         bool is_empty();
         void swap_elements(List*, List*);
+		int  size();
 
     public:
         List_of_books();
         void Add_book(const char* name, const char* author, int pages, int availible);
         void print_if_found(const char* name);
+		void sort_alphabet_descending();
         void show_list();
         void remove_book(const char* name);
         ~List_of_books();
