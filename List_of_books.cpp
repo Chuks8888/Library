@@ -27,6 +27,7 @@ void List_of_books::Add_book(const char* name, const char* author, int pages, in
     }
     ptr->book = new Book(name, author, pages, availible);
     ptr->next = nullptr;
+	ptr->index = size() - 1;
 }
 
 List_of_books::List* List_of_books::find_book_ptr(const char* name)
@@ -47,7 +48,7 @@ bool List_of_books::is_empty()
     return head == nullptr;
 }
 
-void List_of_books::print_if_found(const char* name)
+void List_of_books::search(const char* name)
 {
     List *ptr = find_book_ptr(name);
     if(ptr == nullptr)
@@ -61,6 +62,7 @@ void List_of_books::show_list()
     while(ptr)
     {
         ptr->book->print();
+		std::cout<< " " << ptr->index;
         std::cout<<std::endl;
         ptr = ptr->next;
     }
@@ -87,7 +89,28 @@ int List_of_books::size()
 
 void List_of_books::sort_alphabet_descending()
 {
-	
+	// use qiuick sort https://pl.wikipedia.org/wiki/Sortowanie_szybkie
+}
+
+List_of_books::List* List_of_books::find_by_index(int ind)
+{
+	List* ptr = head;
+	for(int i = 0; i < ind; i++)
+		ptr = ptr->next;
+	return ptr;
+}
+
+void List_of_books::reassign_indices(List* ptr_to_remove)
+{
+	List* ptr = ptr_to_remove->next;
+	int size = ptr_to_remove->index;
+	while(ptr)
+	{
+		ptr->index = size;
+		size++;
+		ptr = ptr->next;
+	}
+
 }
 
 void List_of_books::remove_book(const char* name)
@@ -107,6 +130,7 @@ void List_of_books::remove_book(const char* name)
                 else
                 {
                     head = head->next;
+					reassign_indices(ptr_to_remove);
                     delete ptr_to_remove->book;
                     delete ptr_to_remove;
                 }
@@ -125,6 +149,7 @@ void List_of_books::remove_book(const char* name)
                 else
                 {
                     ptr_before->next = ptr_to_remove->next;
+					reassign_indices(ptr_to_remove);
                     delete ptr_to_remove->book;
                     delete ptr_to_remove;
                 }

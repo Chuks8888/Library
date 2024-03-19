@@ -11,6 +11,7 @@ class Book
         void print();
         bool rent();
         void give_back();
+
         ~Book();
 
         friend class List_of_books;
@@ -21,6 +22,7 @@ class List_of_books
     public:
         struct List
         {
+			int index;
             Book *book;
             List *next;
         };
@@ -28,16 +30,19 @@ class List_of_books
     private:
         List *head;
         List *find_book_ptr(const char* name);
+		List *find_by_index(int);
         bool is_empty();
-        void swap_elements(List*, List*);
 		int  size();
+        void swap_elements(List*, List*);
+		void reassign_indices(List*);
 
     public:
         List_of_books();
         void Add_book(const char* name, const char* author, int pages, int availible);
-        void print_if_found(const char* name);
+        void search(const char* name);
 		void sort_alphabet_descending();
         void show_list();
         void remove_book(const char* name);
+
         ~List_of_books();
 };
