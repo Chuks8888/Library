@@ -87,8 +87,20 @@ int List_of_books::size()
 	return size;
 }
 
+void sortthrough(List_of_books::List* head, int left, int right, int middle)
+{
+    List_of_books::List* left_ptr = head;
+    List_of_books::List* right_ptr = head;
+    for(int i = 0; i < left; i++)
+        left_ptr = left_ptr->next;
+    for(int i = 0; i < right; i++)
+        right_ptr = right_ptr->next;  
+}
+
 void List_of_books::sort_alphabet_descending()
 {
+    int middle = (size() + 1)/2;
+
 	// use qiuick sort https://pl.wikipedia.org/wiki/Sortowanie_szybkie
 }
 
