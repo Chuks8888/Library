@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <cstdint>
 #include <iostream>
 #include <string.h>
@@ -88,42 +89,39 @@ int List_of_books::size()
 	return size;
 }
 
-void sort(List_of_books::List* head, List_of_books::List* left_ptr, List_of_books::List* right_ptr, List_of_books::List* middle_ptr)
+void List_of_books::sort(List* left_ptr, int right, List* middle_ptr)
 {
-	int i = left_ptr->index;
-	int j = right_ptr->index;
-	while(left_ptr != middle_ptr && right_ptr!=middle_ptr)
+	int position = left_ptr->index;
+	for(int i = position; i<right-1; i++)
 	{
-		
+		if(strcmp(left_ptr->book->Name, middle_ptr->book->Name) >= 0)
+		{
+			swap_elements(left_ptr, find_by_index(position));
+		}
 	}
+	swap_elements(middle_ptr, find_by_index(position));
 }
 
-void sortthrough(List_of_books::List* head, int left, int right, int middle)
+void List_of_books::sortthrough(int left, int right, int middle)
 {
 	if(left != right)
 	{
-		List_of_books::List* left_ptr = head;
-		List_of_books::List* right_ptr = head;
-		List_of_books::List* middle_ptr = head;
+		List* left_ptr = this->find_by_index(left);
+		List* middle_ptr = this->find_by_index(middle);
+		List* right_ptr = this->find_by_index(right);
 
-		for(int i = 0; i < left; i++)
-			left_ptr = left_ptr->next;
-		for(int i = 0; i < right; i++)
-			right_ptr = right_ptr->next;  
-		for(int i = 0; i < middle; i++)
-			middle_ptr = middle_ptr->next;
+		swap_elements(middle_ptr, right_ptr);
+		sort(left_ptr, right, right_ptr);
 
-		sort(head, left_ptr, right_ptr, middle_ptr);
-
-		sortthrough(head, left, middle, middle/2);
-		sortthrough(head, middle, right, (middle + right)/2);
+		sortthrough(left, middle, middle/2);
+		sortthrough(middle, right, (middle + right)/2);
 	}
 }
 
 void List_of_books::sort_alphabet_descending()
 {
-    int middle = (size())/2;
-	sortthrough(head, 0, size(), middle);
+    int middle = (size()-1)/2;
+	sortthrough(0, size()-1, middle);
 
 	// use qiuick sort https://pl.wikipedia.org/wiki/Sortowanie_szybkie
 }

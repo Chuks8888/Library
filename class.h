@@ -33,8 +33,10 @@ class List_of_books
 		List *find_by_index(int);
         bool is_empty();
 		int  size();
-        //void swap_elements(List*, List*);
 		void reassign_indices(List*);
+
+		void sort(List*, int, List*);
+		void sortthrough(int, int , int);
 
     public:
         List_of_books();
