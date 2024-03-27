@@ -63,9 +63,9 @@ void List_of_books::show_list()
     List* ptr = head;
     while(ptr)
     {
+        std::cout<< "index: " << ptr->index << std::endl;
         ptr->book->print();
-		std::cout<< " " << ptr->index;
-        std::cout<<std::endl;
+        std::cout<<std::endl<<std::endl;
         ptr = ptr->next;
     }
 }
@@ -89,45 +89,55 @@ int List_of_books::size()
 	return size;
 }
 
-void List_of_books::sort(List* left_ptr, int right, List* middle_ptr)
+int List_of_books::sort(List* left_ptr, int right, List* middle_ptr)
 {
+    //middle_ptr->book->print();
 	int position = left_ptr->index;
-	for(int i = position; i<right-1; i++)
+	for(int i = position; i<right; i++)
 	{
-		if(strcmp(left_ptr->book->Name, middle_ptr->book->Name) >= 0)
+		if(strcmp(left_ptr->book->Name, middle_ptr->book->Name) <= 0)
 		{
 			swap_elements(left_ptr, find_by_index(position));
+            position++;
 		}
+        left_ptr = left_ptr->next;
 	}
 	swap_elements(middle_ptr, find_by_index(position));
+    return position;
 }
 
-void List_of_books::sortthrough(int left, int right, int middle)
+void List_of_books::sortthrough(int left, int right)
 {
-	if(left != right)
+	if(left < right)
 	{
+        int middle = left + (right-1)/2;
+
 		List* left_ptr = this->find_by_index(left);
 		List* middle_ptr = this->find_by_index(middle);
 		List* right_ptr = this->find_by_index(right);
 
 		swap_elements(middle_ptr, right_ptr);
-		sort(left_ptr, right, right_ptr);
+		int position = sort(left_ptr, right, right_ptr);
 
-		sortthrough(left, middle, middle/2);
-		sortthrough(middle, right, (middle + right)/2);
+		sortthrough(left, position-1);  // left part
+		sortthrough(position+1, right); // right part
 	}
 }
 
 void List_of_books::sort_alphabet_descending()
 {
-    int middle = (size()-1)/2;
-	sortthrough(0, size()-1, middle);
+	sortthrough(0, size()-1);
+}
 
-	// use qiuick sort https://pl.wikipedia.org/wiki/Sortowanie_szybkie
+void List_of_books::sort_alphabet_ascending()
+{
+	sortthrough(0, size()-1);
 }
 
 List_of_books::List* List_of_books::find_by_index(int ind)
 {
+    if(ind > size()-1)
+        return nullptr;
 	List* ptr = head;
 	for(int i = 0; i < ind; i++)
 		ptr = ptr->next;

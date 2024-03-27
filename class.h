@@ -35,14 +35,15 @@ class List_of_books
 		int  size();
 		void reassign_indices(List*);
 
-		void sort(List*, int, List*);
-		void sortthrough(int, int , int);
+		int sort(List*, int, List*);
+		void sortthrough(int, int);
 
     public:
         List_of_books();
         void Add_book(const char* name, const char* author, int pages, int availible);
         void search(const char* name);
 		void sort_alphabet_descending();
+        void sort_alphabet_ascending();
         void show_list();
         void remove_book(const char* name);
 
