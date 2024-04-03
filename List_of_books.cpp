@@ -1,5 +1,3 @@
-#include <algorithm>
-#include <cstdint>
 #include <iostream>
 #include <string.h>
 #include "class.h"
@@ -122,8 +120,6 @@ void List_of_books::sort_alphabet_descending()
 {
     int middle = (size()-1)/2;
 	sortthrough(0, size()-1, middle);
-
-	// use qiuick sort https://pl.wikipedia.org/wiki/Sortowanie_szybkie
 }
 
 List_of_books::List* List_of_books::find_by_index(int ind)
