@@ -48,29 +48,3 @@ class List_of_books
 
         ~List_of_books();
 };
-
-class User
-{
-	protected:
-		char* Username;
-		char* Password;
-		int security_score;
-
-	public:
-		User();
-};
-
-class Librarian: private User
-{
-
-};
-
-class Client: private User
-{
-
-};
-
-class Administrator: private User // can add/remove to/from the system, or etc.
-{
-
-};
