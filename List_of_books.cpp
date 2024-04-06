@@ -1,5 +1,3 @@
-#include <algorithm>
-#include <cstdint>
 #include <iostream>
 #include <string.h>
 #include "class.h"
