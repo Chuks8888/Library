@@ -2,7 +2,7 @@ class Book
 {
     private:
         char* Name;
-	char* Author; 
+		char* Author; 
         int Pages;
         int Availible;
 
@@ -22,7 +22,7 @@ class List_of_books
     public:
         struct List
         {
-	    int index;
+			int index;
             Book *book;
             List *next;
         };
@@ -30,19 +30,19 @@ class List_of_books
     private:
         List *head;
         List *find_book_ptr(const char* name);
-	List *find_by_index(int);
+		List *find_by_index(int);
         bool is_empty();
-	int  size();
-	void reassign_indices(List*);
+		int  size();
+		void reassign_indices(List*);
 
-	int sort(List*, int, List*);
-	void sortthrough(int, int);
+		int sort(List*, int, List*);
+		void sortthrough(int, int);
 
     public:
         List_of_books();
         void Add_book(const char* name, const char* author, int pages, int availible);
         void search(const char* name);
-	void sort_alphabet_descending();
+		void sort_alphabet_descending();
         void sort_alphabet_ascending();
         void show_list();
         void remove_book(const char* name);
