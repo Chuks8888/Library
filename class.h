@@ -1,3 +1,4 @@
+#include <vector>
 class Book
 {
     private:
@@ -29,6 +30,7 @@ class List_of_books
         
     private:
         List *head;
+		char *category_name;
         List *find_book_ptr(const char* name);
 		List *find_by_index(int);
         bool is_empty();
@@ -39,7 +41,7 @@ class List_of_books
 		void sortthrough(int, int);
 
     public:
-        List_of_books();
+        List_of_books(const char*);
         void Add_book(const char* name, const char* author, int pages, int availible);
         void search(const char* name);
 		void sort_alphabet_descending();
@@ -55,7 +57,6 @@ class User
 	protected:
 		char* Username;
 		char* Password;
-		int security_score;
 
 	public:
 		User();
@@ -63,7 +64,9 @@ class User
 
 class Librarian: private User
 {
-
+	private:
+		char* email;
+		std::vector<Book> Borrowed;
 };
 
 class Client: private User
@@ -75,3 +78,15 @@ class Administrator: private User // can add/remove to/from the system, or etc.
 {
 
 };
+
+class Library
+{
+	private:
+		std::vector<List_of_books> BOOKS;
+		std::vector<Client> ACCOUNTS;
+		std::vector<Librarian> EMPLOYEES;
+
+	friend Administrator;
+};
+
+

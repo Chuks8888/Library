@@ -2,8 +2,10 @@
 #include <string.h>
 #include "class.h"
 
-List_of_books::List_of_books()
+List_of_books::List_of_books(const char* categ_name)
 {
+	category_name = new char[sizeof(categ_name) + 1];
+	strcpy(category_name, categ_name);
     this->head = nullptr;
 }
 
