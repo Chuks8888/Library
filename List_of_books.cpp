@@ -50,6 +50,18 @@ bool List_of_books::is_empty()
     return head == nullptr;
 }
 
+int List_of_books::size()
+{
+	List* ptr = head;
+	int size = 0;
+	while(ptr)
+	{
+		size++;
+		ptr = ptr->next;
+	}
+	return size;
+}
+
 void List_of_books::search(const char* name)
 {
     List *ptr = find_book_ptr(name);
@@ -58,7 +70,7 @@ void List_of_books::search(const char* name)
     else std::cerr << "Book " << ptr->book->Name << " found" << std::endl;
 }
 
-void List_of_books::show_list()
+void List_of_books::show_list() const
 {
     List* ptr = head;
     while(ptr)
@@ -77,18 +89,6 @@ void swap_elements(List_of_books::List* element_1, List_of_books::List* element_
     element_2->book = temp;
 }
 
-int List_of_books::size()
-{
-	List* ptr = head;
-	int size = 0;
-	while(ptr)
-	{
-		size++;
-		ptr = ptr->next;
-	}
-	return size;
-}
-
 int List_of_books::sort(List* left_ptr, int right, List* middle_ptr)
 {
     //middle_ptr->book->print();
@@ -104,6 +104,11 @@ int List_of_books::sort(List* left_ptr, int right, List* middle_ptr)
 	}
 	swap_elements(middle_ptr, find_by_index(position));
     return position;
+}
+
+std::ostream& operator<<(std::ostream& os, const List_of_books &list)
+{
+
 }
 
 void List_of_books::sortthrough(int left, int right)
@@ -154,53 +159,50 @@ void List_of_books::reassign_indices(List* ptr_to_remove)
 		size++;
 		ptr = ptr->next;
 	}
-
 }
 
 void List_of_books::remove_book(const char* name)
 {
-    if(is_empty() != 1)
+    if(find_book_ptr(name) != nullptr)
     {
-        if(find_book_ptr(name) != nullptr)
+        List* ptr_to_remove = find_book_ptr(name);
+        if(ptr_to_remove == head)
         {
-            List* ptr_to_remove = find_book_ptr(name);
-            if(ptr_to_remove == head)
+            if(head->next == nullptr)
             {
-                if(head->next == nullptr)
-                {
-                    delete head->book;
-                    delete head;
-                }
-                else
-                {
-                    head = head->next;
-					reassign_indices(ptr_to_remove);
-                    delete ptr_to_remove->book;
-                    delete ptr_to_remove;
-                }
+                delete head->book;
+                delete head;
             }
             else
             {
-                List* ptr_before = head;
-                while(ptr_before->next != ptr_to_remove)
-                    ptr_before = ptr_before->next;
-                if(ptr_to_remove->next == nullptr)
-                {
-                    delete ptr_to_remove->book;
-                    delete ptr_to_remove;
-                    ptr_before->next = nullptr;
-                }
-                else
-                {
-                    ptr_before->next = ptr_to_remove->next;
-					reassign_indices(ptr_to_remove);
-                    delete ptr_to_remove->book;
-                    delete ptr_to_remove;
-                }
+                head = head->next;
+				reassign_indices(ptr_to_remove);
+                delete ptr_to_remove->book;
+                delete ptr_to_remove;
+            }
+        }
+        else
+        {
+            List* ptr_before = head;
+            while(ptr_before->next != ptr_to_remove)
+                ptr_before = ptr_before->next;
+            if(ptr_to_remove->next == nullptr)
+            {
+                delete ptr_to_remove->book;
+                delete ptr_to_remove;
+                ptr_before->next = nullptr;
+            }
+            else
+            {
+                ptr_before->next = ptr_to_remove->next;
+				reassign_indices(ptr_to_remove);
+                delete ptr_to_remove->book;
+                delete ptr_to_remove;
             }
         }
     }
 }
+
 
 List_of_books::~List_of_books()
 {

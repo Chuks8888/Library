@@ -46,7 +46,7 @@ class List_of_books
         void search(const char* name);
 		void sort_alphabet_descending();
         void sort_alphabet_ascending();
-        void show_list();
+        void show_list() const;
         void remove_book(const char* name);
 
         ~List_of_books();
@@ -57,26 +57,31 @@ class User
 	protected:
 		char* Username;
 		char* Password;
-
+        char phone_number[9];
 	public:
 		User();
 };
 
 class Librarian: private User
 {
-	private:
-		char* email;
-		std::vector<Book> Borrowed;
+    private:
+        double salary;
+    public:
+        Librarian();
 };
 
 class Client: private User
 {
-
+	private:
+		std::vector<Book> Borrowed;
+    public:
+        Client();
 };
 
 class Administrator: private User // can add/remove to/from the system, or etc.
 {
-
+    public:
+        Administrator();
 };
 
 class Library
